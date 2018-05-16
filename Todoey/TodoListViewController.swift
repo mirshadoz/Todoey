@@ -10,7 +10,7 @@ import UIKit
 
 class TodoListViewController: UITableViewController {
 
-    let itemArray: [String] = ["Find Mike", "Earn 1,000,000,000.00 by 2028", "Don't go crazy!"]
+    var itemArray: [String] = ["Find Mike", "Earn 1,000,000,000.00 by 2028", "Don't go crazy!"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +46,41 @@ class TodoListViewController: UITableViewController {
         }
         
     }
+    
+    // MARK - Add IBAction to add Todo items
+    @IBAction func addNewItem(_ sender: Any) {
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Add new item", message: "", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Add item", style: .default) { (action) in
+            
+            // What will happen when user clicks on Add item button
+            print("Success")
+            print("Added item: \(textField.text!)")
+            
+            if let newItem: String = textField.text {
+                // Adding newly created item into array
+                self.itemArray.append(newItem)
+                self.tableView.reloadData()
+            } else {
+                print("Nothing to add, sorry! :)))")
+            }
+            
+        }
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Create new item"
+            textField = alertTextField
+        }
+        
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+        
+        
+    }
+    
+    
     
 }
 
